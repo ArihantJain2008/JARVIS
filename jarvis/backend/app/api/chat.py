@@ -1,5 +1,6 @@
 from fastapi import APIRouter
 from pydantic import BaseModel
+from app.services.memory import save_memory
 
 from app.services.llm import ask_llm
 
@@ -10,6 +11,14 @@ from app.services.conversation import (
 
 from app.services.memory import (
     build_memory_context
+)
+
+from app.services.semantic_memory import (
+    save_semantic_memory
+)
+
+from app.services.memory_extractor import (
+    should_store_memory
 )
 
 router = APIRouter()
@@ -26,6 +35,10 @@ async def chat_endpoint(data: ChatRequest):
         "user",
         data.message
     )
+
+    if should_store_memory(data.message):
+        save_memory(data.message)
+        save_semantic_memory(data.message)
 
     memory_context = build_memory_context()
 
