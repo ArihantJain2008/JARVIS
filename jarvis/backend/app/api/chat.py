@@ -1,6 +1,11 @@
 from fastapi import APIRouter
 from pydantic import BaseModel
-from ollama import chat
+
+from app.services.llm import ask_llm
+from app.services.conversation import (
+    add_message,
+    get_history
+)
 
 router = APIRouter()
 
@@ -12,34 +17,12 @@ class ChatRequest(BaseModel):
 @router.post("/chat")
 async def chat_endpoint(data: ChatRequest):
 
-    response = chat(
-        model="qwen3:8b",
-        messages=[
-            {
-                "role": "system",
-                "content": """
-You are Jarvis.
+    add_message("user", data.message)
 
-You are a local AI assistant.
+    response = ask_llm(get_history())
 
-Be concise.
-
-Avoid roleplaying.
-
-Give direct answers.
-
-You help with productivity,
-files, programming,
-research and desktop tasks.
-"""
-            },
-            {
-                "role": "user",
-                "content": data.message
-            }
-        ]
-    )
+    add_message("assistant", response)
 
     return {
-        "response": response["message"]["content"]
+        "response": response
     }
