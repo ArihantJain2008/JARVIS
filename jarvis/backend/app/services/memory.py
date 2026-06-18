@@ -29,3 +29,15 @@ def get_memories():
     conn.close()
 
     return [row[0] for row in rows]
+
+
+def build_memory_context():
+
+    memories = get_memories()
+
+    if not memories:
+        return "No stored memories."
+
+    return "\n".join(
+        [f"- {memory}" for memory in memories]
+    )

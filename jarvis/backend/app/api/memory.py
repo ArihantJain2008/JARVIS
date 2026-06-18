@@ -8,14 +8,14 @@ from app.services.memory import (
 router = APIRouter()
 
 
-@router.get("/memory/save")
-def save():
+@router.get("/memory/add/{fact}")
+def add_memory(fact: str):
 
-    save_memory(
-        "My favorite editor is VS Code"
-    )
+    save_memory(fact)
 
-    return {"status": "saved"}
+    return {
+        "saved": fact
+    }
 
 
 @router.get("/memory/list")
