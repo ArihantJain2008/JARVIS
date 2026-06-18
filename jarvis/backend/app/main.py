@@ -1,27 +1,6 @@
 from fastapi import FastAPI
-from ollama import chat
+from app.api.chat import router as chat_router
 
 app = FastAPI()
 
-
-@app.get("/")
-def root():
-    return {"message": "Jarvis Backend Running"}
-
-
-@app.get("/test")
-def test_qwen():
-
-    response = chat(
-        model="qwen3:8b",
-        messages=[
-            {
-                "role": "user",
-                "content": "Say hello from Jarvis."
-            }
-        ]
-    )
-
-    return {
-        "response": response["message"]["content"]
-    }
+app.include_router(chat_router)
