@@ -8,6 +8,7 @@ create_folder
 list_files
 read_file
 write_file
+append_file
 """
 
 
@@ -27,7 +28,9 @@ Available tools:
 
 Return ONLY valid JSON.
 
-For file creation requests, extract both the file path and the content.
+For file creation requests, extract both the file path and content.
+
+For append requests, extract both the file path and content.
 
 Examples:
 
@@ -86,6 +89,26 @@ User: Create a file called notes.txt and write hello world
   "arguments": {{
     "path": "notes.txt",
     "content": "hello world"
+  }}
+}}
+
+User: Add milk to shopping.txt
+
+{{
+  "tool": "append_file",
+  "arguments": {{
+    "path": "shopping.txt",
+    "content": "milk"
+  }}
+}}
+
+User: Append meeting notes to notes.txt
+
+{{
+  "tool": "append_file",
+  "arguments": {{
+    "path": "notes.txt",
+    "content": "meeting notes"
   }}
 }}
 

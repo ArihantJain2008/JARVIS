@@ -75,3 +75,25 @@ def write_file(path: str, content: str):
     except Exception as e:
 
         return str(e)
+
+def append_file(path: str, content: str):
+
+    try:
+
+        with open(
+            path,
+            "a",
+            encoding="utf-8"
+        ) as f:
+
+            f.write(
+                content + "\n"
+            )
+
+        return (
+            f"Content appended to: {path}"
+        )
+
+    except Exception as e:
+
+        return str(e)
