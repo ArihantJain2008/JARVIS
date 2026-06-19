@@ -13,16 +13,20 @@ from app.services.memory import (
 )
 
 from app.services.semantic_memory import (
-    save_semantic_memory
+    save_semantic_memory,
+    build_semantic_context
 )
 
 from app.services.memory_ranker import (
     should_remember
 )
 
-from app.services.semantic_memory import (
-    save_semantic_memory,
-    build_semantic_context
+from app.services.tool_selector import (
+    select_tool
+)
+
+from app.services.tool_executor import (
+    execute_tool
 )
 
 router = APIRouter()
@@ -51,9 +55,23 @@ async def chat_endpoint(data: ChatRequest):
                 data.message
             )
 
+    tool = select_tool(
+        data.message
+    )
+
+    if tool:
+
+        result = execute_tool(
+            tool
+        )
+
+        return {
+            "response": result
+        }
+
     memory_context = build_semantic_context(
-    data.message
-)
+        data.message
+    )
 
     memory_message = {
         "role": "system",
@@ -73,7 +91,9 @@ Use these memories when relevant.
         memory_message
     )
 
-    response = ask_llm(messages)
+    response = ask_llm(
+        messages
+    )
 
     add_message(
         "assistant",
