@@ -1,11 +1,10 @@
 from ollama import chat
 
-
-AVAILABLE_TOOLS = [
-    "open_notepad",
-    "open_calculator",
-    "none"
-]
+AVAILABLE_TOOLS = """
+open_notepad
+open_calculator
+take_screenshot
+"""
 
 
 def select_tool(message: str):
@@ -16,24 +15,43 @@ def select_tool(message: str):
             {
                 "role": "system",
                 "content": f"""
-You are a tool selector.
+You are a tool calling AI.
 
 Available tools:
 
-{chr(10).join(AVAILABLE_TOOLS)}
+{AVAILABLE_TOOLS}
 
-Rules:
+Return ONLY valid JSON.
 
-Open Notepad -> open_notepad
-Launch Notepad -> open_notepad
+Examples:
 
-Open Calculator -> open_calculator
-Start Calculator -> open_calculator
+User: Open Notepad
 
-If no tool matches:
-reply with none
+{{
+  "tool": "open_notepad",
+  "arguments": {{}}
+}}
 
-Reply ONLY with the tool name.
+User: Open Calculator
+
+{{
+  "tool": "open_calculator",
+  "arguments": {{}}
+}}
+
+User: Take a screenshot
+
+{{
+  "tool": "take_screenshot",
+  "arguments": {{}}
+}}
+
+If no tool is needed:
+
+{{
+  "tool": "none",
+  "arguments": {{}}
+}}
 """
             },
             {
@@ -43,16 +61,4 @@ Reply ONLY with the tool name.
         ]
     )
 
-    tool = (
-        response["message"]["content"]
-        .strip()
-        .lower()
-    )
-
-    if tool not in AVAILABLE_TOOLS:
-        return None
-
-    if tool == "none":
-        return None
-
-    return tool
+    return response["message"]["content"]

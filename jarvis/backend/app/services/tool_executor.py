@@ -3,7 +3,10 @@ from app.tools.app_tools import (
     open_calculator
 )
 
-from app.tools.screenshot_tools import take_screenshot
+from app.tools.screenshot_tools import (
+    take_screenshot
+)
+
 
 TOOLS = {
     "open_notepad": open_notepad,
@@ -12,9 +15,14 @@ TOOLS = {
 }
 
 
-def execute_tool(tool_name):
+def execute_tool(tool_call):
+
+    tool_name = tool_call["tool"]
+
+    if tool_name == "none":
+        return None
 
     if tool_name not in TOOLS:
-        return "Tool not found."
+        return None
 
     return TOOLS[tool_name]()

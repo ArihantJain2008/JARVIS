@@ -29,6 +29,10 @@ from app.services.tool_executor import (
     execute_tool
 )
 
+from app.services.tool_call_parser import (
+    parse_tool_call
+)
+
 router = APIRouter()
 
 
@@ -44,6 +48,7 @@ async def chat_endpoint(data: ChatRequest):
         data.message
     )
 
+    # Memory Storage
     if should_remember(data.message):
 
         stored = save_memory(
@@ -55,20 +60,28 @@ async def chat_endpoint(data: ChatRequest):
                 data.message
             )
 
-    tool = select_tool(
+    # Tool Calling
+    tool_response = select_tool(
         data.message
     )
 
-    if tool:
+    tool_call = parse_tool_call(
+        tool_response
+    )
+
+    if tool_call:
 
         result = execute_tool(
-            tool
+            tool_call
         )
 
-        return {
-            "response": result
-        }
+        if result:
 
+            return {
+                "response": result
+            }
+
+    # Semantic Memory Retrieval
     memory_context = build_semantic_context(
         data.message
     )
@@ -91,6 +104,7 @@ Use these memories when relevant.
         memory_message
     )
 
+    # Normal Chat
     response = ask_llm(
         messages
     )
