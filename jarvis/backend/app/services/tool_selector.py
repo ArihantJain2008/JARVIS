@@ -7,6 +7,7 @@ take_screenshot
 create_folder
 list_files
 read_file
+write_file
 """
 
 
@@ -25,6 +26,8 @@ Available tools:
 {AVAILABLE_TOOLS}
 
 Return ONLY valid JSON.
+
+For file creation requests, extract both the file path and the content.
 
 Examples:
 
@@ -73,6 +76,16 @@ User: Read todo.txt
   "tool": "read_file",
   "arguments": {{
     "path": "todo.txt"
+  }}
+}}
+
+User: Create a file called notes.txt and write hello world
+
+{{
+  "tool": "write_file",
+  "arguments": {{
+    "path": "notes.txt",
+    "content": "hello world"
   }}
 }}
 

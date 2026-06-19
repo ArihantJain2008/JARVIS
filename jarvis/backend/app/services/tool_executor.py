@@ -10,7 +10,8 @@ from app.tools.screenshot_tools import (
 from app.tools.file_tools import (
     create_folder,
     list_files,
-    read_file
+    read_file,
+    write_file
 )
 
 
@@ -20,7 +21,8 @@ TOOLS = {
     "take_screenshot": take_screenshot,
     "create_folder": create_folder,
     "list_files": list_files,
-    "read_file": read_file
+    "read_file": read_file,
+    "write_file": write_file
 }
 
 

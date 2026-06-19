@@ -53,3 +53,25 @@ def read_file(path: str):
     except Exception as e:
 
         return str(e)
+    
+def write_file(path: str, content: str):
+
+    try:
+
+        with open(
+            path,
+            "w",
+            encoding="utf-8"
+        ) as f:
+
+            f.write(
+                content
+            )
+
+        return (
+            f"File written: {path}"
+        )
+
+    except Exception as e:
+
+        return str(e)
