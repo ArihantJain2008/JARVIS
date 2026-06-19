@@ -4,6 +4,9 @@ AVAILABLE_TOOLS = """
 open_notepad
 open_calculator
 take_screenshot
+create_folder
+list_files
+read_file
 """
 
 
@@ -44,6 +47,33 @@ User: Take a screenshot
 {{
   "tool": "take_screenshot",
   "arguments": {{}}
+}}
+
+User: Create a folder called Notes
+
+{{
+  "tool": "create_folder",
+  "arguments": {{
+    "folder_name": "Notes"
+  }}
+}}
+
+User: Show files in Downloads
+
+{{
+  "tool": "list_files",
+  "arguments": {{
+    "path": "Downloads"
+  }}
+}}
+
+User: Read todo.txt
+
+{{
+  "tool": "read_file",
+  "arguments": {{
+    "path": "todo.txt"
+  }}
 }}
 
 If no tool is needed:
