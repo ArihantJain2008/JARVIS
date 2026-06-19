@@ -3,10 +3,12 @@ from app.tools.app_tools import (
     open_calculator
 )
 
+from app.tools.screenshot_tools import take_screenshot
 
 TOOLS = {
     "open_notepad": open_notepad,
-    "open_calculator": open_calculator
+    "open_calculator": open_calculator,
+    "take_screenshot": take_screenshot
 }
 
 
