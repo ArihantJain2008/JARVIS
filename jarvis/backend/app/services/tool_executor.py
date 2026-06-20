@@ -15,16 +15,27 @@ from app.tools.file_tools import (
     append_file
 )
 
+from app.tools.desktop_tools import (
+    type_text,
+    press_key,
+    hotkey
+)
+
 
 TOOLS = {
     "open_notepad": open_notepad,
     "open_calculator": open_calculator,
     "take_screenshot": take_screenshot,
+
     "create_folder": create_folder,
     "list_files": list_files,
     "read_file": read_file,
     "write_file": write_file,
-    "append_file": append_file
+    "append_file": append_file,
+
+    "type_text": type_text,
+    "press_key": press_key,
+    "hotkey": hotkey
 }
 
 

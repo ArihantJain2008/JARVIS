@@ -9,6 +9,9 @@ list_files
 read_file
 write_file
 append_file
+type_text
+press_key
+hotkey
 """
 
 
@@ -109,6 +112,42 @@ User: Append meeting notes to notes.txt
   "arguments": {{
     "path": "notes.txt",
     "content": "meeting notes"
+  }}
+}}
+
+User: Type hello world
+
+{{
+  "tool": "type_text",
+  "arguments": {{
+    "text": "hello world"
+  }}
+}}
+
+User: Press Enter
+
+{{
+  "tool": "press_key",
+  "arguments": {{
+    "key": "enter"
+  }}
+}}
+
+User: Press Control S
+
+{{
+  "tool": "hotkey",
+  "arguments": {{
+    "keys": ["ctrl", "s"]
+  }}
+}}
+
+User: Press Alt Tab
+
+{{
+  "tool": "hotkey",
+  "arguments": {{
+    "keys": ["alt", "tab"]
   }}
 }}
 
