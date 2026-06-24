@@ -60,14 +60,20 @@ async def chat_endpoint(data: ChatRequest):
                 data.message
             )
 
-    # Tool Calling
+        # Tool Calling
     tool_response = select_tool(
         data.message
     )
 
+    print("\nTOOL RESPONSE:")
+    print(tool_response)
+
     tool_call = parse_tool_call(
         tool_response
     )
+
+    print("\nTOOL CALL:")
+    print(tool_call)
 
     if tool_call:
 
@@ -116,4 +122,4 @@ Use these memories when relevant.
 
     return {
         "response": response
-    }
+    }   
